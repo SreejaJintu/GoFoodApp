@@ -1,0 +1,55 @@
+.payment-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-summary {
+    margin-bottom: 20px;
+  }
+  
+  .payment-summary h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .payment-summary ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .payment-summary ul li {
+    margin-bottom: 8px;
+  }
+  
+  .payment-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  

@@ -1,17 +1,17 @@
 import { createContext } from "react";
+export const StoreContext = createContext(null);
 
-export const StoreContext = createContext(null)
+const StoreContextProvider = (props) => {
+    // const [food_list,setFood_list]=useState([])
+  const contextValue = {
+  };
 
-const StoreContextProvider=(props)=>{
 
+  return (
+    <StoreContext.Provider value={contextValue}>
+      {props.children}
+    </StoreContext.Provider>
+  );
+};
 
-    const contextValue={
-
-    }
-    return(
-        <StoreContextProvider value={contextValue}>
-        {props.children}
-        </StoreContextProvider>
-    )
-} 
-export default StoreContextProvider
+export default StoreContextProvider;

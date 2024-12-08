@@ -1,0 +1,101 @@
+/* Navbar container */
+.navbar {
+    background-color: #f8f9fa; /* Light background for the navbar */
+    padding: 10px 20px; /* Adjust padding to your preference */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+  }
+  
+  /* Navbar brand styling */
+  .navbar-brand {
+    font-size: 2rem; /* Larger font size for branding */
+    font-family: 'Courier New', Courier, monospace; /* Italic font style */
+    color: #007bff; /* Blue color for the brand */
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .navbar-brand:hover {
+    color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Navbar item styling */
+  .navbar-nav .nav-item .nav-link {
+    font-size: 1.1rem; /* Slightly larger text for readability */
+    font-weight: 500; /* Bold text */
+    color: #6c757d; /* Grey color for text */
+    padding: 8px 15px;
+  }
+  
+  .navbar-nav .nav-item .nav-link:hover {
+    color: #007bff; /* Blue color on hover */
+    text-decoration: underline;
+  }
+  
+  /* Style for active navbar item */
+  .navbar-nav .nav-item .nav-link.active {
+    font-weight: bold;
+    color: #007bff; /* Active link in blue */
+  }
+  
+  /* Style for cart badge */
+  .cart-link {
+    position: relative;
+    text-decoration: none;
+    color: #007bff; /* Color for the cart link */
+    font-size: 1.2rem;
+  }
+  
+  .cart-link:hover {
+    color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Cart badge styling */
+  .cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    border-radius: 50%;
+    padding: 5px;
+    min-width: 20px;
+    text-align: center;
+  }
+  
+  /* Login/Signout buttons */
+  .btn {
+    font-size: 1rem; /* Adjust font size */
+    border-radius: 5px; /* Rounded corners for buttons */
+    padding: 8px 15px;
+  }
+  
+  .bg-grey {
+    background-color: #f0f0f0; /* Light grey background */
+  }
+  
+  .text-secondary {
+    color: #6c757d; /* Secondary text color */
+  }
+  
+  .text-danger {
+    color: #dc3545; /* Red color for logout button */
+  }
+  
+  .btn:hover {
+    background-color: #ddd; /* Light grey background on hover */
+  }
+  
+  /* Responsive navbar (when the screen size is small) */
+  @media (max-width: 768px) {
+    .navbar-nav {
+      text-align: center;
+    }
+    .navbar-toggler {
+      border-color: #007bff;
+    }
+    .navbar-toggler-icon {
+      background-color: #007bff; /* Change the burger icon color */
+    }
+  }
+  

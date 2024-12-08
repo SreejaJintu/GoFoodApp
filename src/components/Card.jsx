@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
-import { CartContext } from '../context/cartContext'; 
+import { StoreContext } from '../context/StoreContext'; 
 
 function Card({ name, price, category, description, image }) {
-  const { addToCart } = useContext(CartContext); 
+  const { addToCart } = useContext(StoreContext); 
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('half');
 

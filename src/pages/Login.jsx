@@ -1,78 +1,92 @@
-import React, { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode'; 
 
 export default function Login() {
+  let navigate = useNavigate();
+  const [inputs, setInputs] = useState({ name: '', password: '' });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  let navigate=useNavigate()
-  const [inputs, setInputs] = useState({ name:"", password: "" });
-
-  // Handle input changes
   const handleChange = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value }); // Remove unnecessary array brackets
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+  
     try {
-      console.log("Submitting form...");
-      const response = await fetch("http://localhost:5000/user/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('http://localhost:5000/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inputs),
       });
+  
       const data = await response.json();
-      console.log("Response received:", data);
   
       if (response.ok) {
-        alert("Login successful!");
-        localStorage.setItem("authToken",response.json.token)
-        console.log( localStorage.getItem("authToken"))
-        navigate('/')
+        alert('Login successful!');
+        localStorage.setItem('authToken', data.token); 
+  
+        // Decode the token to get user details
+        const decodedToken = jwtDecode(data.token); 
+        localStorage.setItem('user', JSON.stringify({ role: decodedToken.role }));
+  
+        console.log(decodedToken.role); // You can use this role value in your app
+        navigate('/');
       } else {
-        alert(`Error: ${data.message}`);
+        setError(data.message || 'Login failed. Please try again.');
       }
     } catch (error) {
-      console.error("Error occurred:", error);
+      setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
+  
   return (
-
-    <div>
-      <div className="container">
-      <form onSubmit={handleSubmit}>
-      <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-           Username
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="exampleInputName"
-            name="name"
-            value={inputs.name}
-            onChange={handleChange}
-          />
-        </div>
-        
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            name="password"
-            value={inputs.password}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
+    <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+      <div className="card shadow p-4" style={{ width: '100%', maxWidth: '400px' }}>
+        <h3 className="text-center mb-4">Login</h3>
+        {error && <div className="alert alert-danger" role="alert">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="exampleInputName" className="form-label">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputName"
+              name="name"
+              value={inputs.name}
+              onChange={handleChange}
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              name="password"
+              value={inputs.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary w-100"
+            disabled={loading}
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+      </div>
     </div>
-    </div>
-  )
+  );
 }
