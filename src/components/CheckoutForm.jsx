@@ -23,7 +23,7 @@ function CheckoutForm({ totalAmount, cart }) {
     try {
       // Create a payment intent on the server
       const { data: clientSecret } = await axios.post(
-        'http://localhost:5000/payment/create-payment-intent',
+        `${process.env.REACT_APP_BACKEND_URL}/payment/create-payment-intent`,
         { amount: totalAmount * 100 } // Amount in cents
       );
 

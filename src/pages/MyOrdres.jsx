@@ -15,7 +15,7 @@ function MyOrders() {
           throw new Error('User not authenticated');
         }
 
-        const response = await axios.get('http://localhost:5000/order/my-orders', {
+        const response = await axios.get('https://backend-gofood-aq0x.onrender.com/order/my-orders', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
