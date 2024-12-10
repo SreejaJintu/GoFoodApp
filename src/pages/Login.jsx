@@ -17,12 +17,16 @@ export default function Login() {
     setLoading(true);
     setError(null);
   
-    try {
-      const response = await fetch('https://backend-gofood-aq0x.onrender.com/user/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(inputs),
-      });
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
+
+try {
+  const response = await fetch(`${backendURL}/user/login`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify(inputs),
+  });
   
       const data = await response.json();
   

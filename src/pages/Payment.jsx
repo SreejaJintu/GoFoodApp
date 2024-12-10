@@ -1,12 +1,12 @@
 import React from 'react';
-import { useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from '../components/CheckoutForm';
 import './Payment.css';
 
-// Load Stripe with your publishable key
-const stripePromise = loadStripe('pk_test_51QTRAELEKPpFnzksIZIqLrk37fo3IIsbQDWHv7o6B9YNvPxR8UmkLKO8OxjL4Ee246hljJzMzkRLfdrDYqpwmsha008rUWwUrC');
+// Load Stripe with publishable key from the .env file
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 function Payment() {
   const location = useLocation();
