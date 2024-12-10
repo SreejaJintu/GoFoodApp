@@ -23,7 +23,7 @@ function CheckoutForm({ totalAmount, cart }) {
     try {
       // Create a payment intent on the server
       const { data: clientSecret } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/payment/create-payment-intent`,
+        "https://backend-gofood-aq0x.onrender.com//payment/create-payment-intent",
         { amount: totalAmount * 100 } // Amount in cents
       );
 
