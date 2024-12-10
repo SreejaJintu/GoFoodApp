@@ -100,3 +100,19 @@ function Signup() {
 }
 
 export default Signup;
+ // "browserslist": {
+  //   "production": [
+  //     ">0.2%",
+  //     "not dead",
+  //     "not op_mini all"
+  //   ],
+  //   "development": [
+  //     "last 1 chrome version",
+  //     "last 1 firefox version",
+  //     "last 1 safari version"
+  //   ],
+  //   "engines": {
+  //     "node": "16.x",
+  //     "npm": "7.x"
+  //   }
+  // }

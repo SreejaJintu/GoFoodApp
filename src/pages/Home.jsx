@@ -13,24 +13,29 @@ function Home() {
   // Fetch food items from the backend
   const loadData = useCallback(async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/food/display`, {
+      // console.log("Fetching data from:", `${process.env.REACT_APP_BACKEND_URL}/food/display`);
+      const response = await fetch("https://backend-gofood-aq0x.onrender.com/food/display", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
-
+      
+  
       if (!response.ok) {
         throw new Error("Failed to fetch data from the server");
       }
-
+  
       const data = await response.json();
+      console.log("Fetched data:", data);
+  
       setFoodItems(data);
-      setFilteredItems(data); // Initially show all items
+      setFilteredItems(data);
     } catch (error) {
-      console.error("Error loading data:", error);
+      console.error("Error loading data:", error.message || error);
       setFoodItems([]);
       setFilteredItems([]);
     }
   }, []);
+  
 
   useEffect(() => {
     loadData();
