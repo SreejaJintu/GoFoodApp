@@ -10,11 +10,16 @@ function MyOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const token = localStorage.getItem('authToken');
+        // const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem('token');
+        console.log('Token:', token);
+
         if (!token) {
           throw new Error('User not authenticated');
         }
-
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        console.log('Token Expiration:', new Date(decodedToken.exp * 1000));
+        
         const backendURL = process.env.REACT_APP_BACKEND_URL;
 
         const response = await axios.get(`${backendURL}/order/my-orders`, {

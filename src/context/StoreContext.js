@@ -51,10 +51,12 @@ const StoreContextProvider = ({ children }) => {
 
   const contextValue = {
     cart: state.cart,
+    user: state.user, 
     addToCart,
     removeFromCart,
-    clearCart,  
+    clearCart,
   };
+  
 
   return (
     <StoreContext.Provider value={contextValue}>
