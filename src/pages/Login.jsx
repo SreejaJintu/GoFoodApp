@@ -36,9 +36,8 @@ try {
   
         // Decode the token to get user details
         const decodedToken = jwtDecode(data.token); 
-        localStorage.setItem('user', JSON.stringify({ role: decodedToken.role }));
-  
-        console.log(decodedToken.role); // You can use this role value in your app
+        localStorage.setItem('user', JSON.stringify(decodedToken));
+
         navigate('/');
       } else {
         setError(data.message || 'Login failed. Please try again.');

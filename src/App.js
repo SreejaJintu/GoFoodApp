@@ -9,7 +9,7 @@ import MyOrdres from "./pages/MyOrdres";
 import Dashboard from './admin/components/Dashboard'
 import { UserProvider } from './context/userContext';
 import Payment from "./pages/Payment";
-import Cart2 from "./pages/Aftercheckout";
+import Cart2 from "./pages/Cart2";
 
 function App() {
   return (
