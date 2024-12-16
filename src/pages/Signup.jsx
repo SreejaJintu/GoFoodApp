@@ -26,6 +26,7 @@ function Signup() {
 
       if (response.ok) {
         localStorage.setItem("authToken", data.token); 
+        localStorage.setItem('userId', data.userId);
         alert("Registration successful!");
         navigate("/"); 
       }

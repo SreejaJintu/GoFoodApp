@@ -33,6 +33,8 @@ try {
       if (response.ok) {
         alert('Login successful!');
         localStorage.setItem('authToken', data.token); 
+        localStorage.setItem('userId', data.userId); 
+
   
         // Decode the token to get user details
         const decodedToken = jwtDecode(data.token); 

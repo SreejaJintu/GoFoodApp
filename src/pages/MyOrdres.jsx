@@ -10,8 +10,7 @@ function MyOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        // const token = localStorage.getItem('authToken');
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('authToken');
         console.log('Token:', token);
 
         if (!token) {
