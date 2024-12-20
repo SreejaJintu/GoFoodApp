@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'; 
+// import {jwtDecode} from 'jwt-decode'; 
 
 export default function Login() {
   let navigate = useNavigate();
@@ -34,13 +34,21 @@ try {
         alert('Login successful!');
         localStorage.setItem('authToken', data.token); 
         localStorage.setItem('userId', data.userId); 
-
+        // localStorage.setItem('user', JSON.stringify({ token: response.data.token, role: response.data.user.role }));
+        localStorage.setItem('role', data.role); // Store user role
+        
+        // Redirect based on role
+        if (data.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
   
-        // Decode the token to get user details
-        const decodedToken = jwtDecode(data.token); 
-        localStorage.setItem('user', JSON.stringify(decodedToken));
+        // // Decode the token to get user details
+        // const decodedToken = jwtDecode(data.token); 
+        // localStorage.setItem('user', JSON.stringify(decodedToken));
 
-        navigate('/');
+        // navigate('/');
       } else {
         setError(data.message || 'Login failed. Please try again.');
       }

@@ -17,7 +17,7 @@ function Cart4() {
   const handleProceed = async () => {
     const userId = localStorage.getItem("userId");
     const authToken = localStorage.getItem("authToken");
-
+    console.log(authToken)
     if (!authToken || !userId) {
       alert("You must be logged in to proceed with the order.");
       return;

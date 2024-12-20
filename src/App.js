@@ -9,6 +9,7 @@ import Dashboard from './admin/components/Dashboard'
 import { UserProvider } from './context/userContext';
 import Payment from "./pages/PaymentForm";
 import Cart4 from "./pages/Cart4";
+import PrivateRoute from './admin/components/PrivateRoute';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/myorders" element={<MyOrdres/>} />
       <Route path="/admin" element={<Dashboard/>} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/admin" element={<PrivateRoute ><Dashboard /></PrivateRoute>} />
 
 
 
