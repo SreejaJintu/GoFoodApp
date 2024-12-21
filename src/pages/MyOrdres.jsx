@@ -23,6 +23,7 @@ function MyOrders() {
 
         const response = await axios.get(`${backendURL}/order/my-orders`, {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
