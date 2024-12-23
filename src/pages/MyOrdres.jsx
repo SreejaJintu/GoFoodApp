@@ -11,7 +11,10 @@ function MyOrders() {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('authToken');
+        const userId = localStorage.getItem('userId');
         console.log('Token:', token);
+        console.log('UserId:', userId);
+
 
         if (!token) {
           throw new Error('User not authenticated');
@@ -21,7 +24,9 @@ function MyOrders() {
         
         const backendURL = process.env.REACT_APP_BACKEND_URL;
 
-        const response = await axios.get(`${backendURL}/order/my-orders`, {
+        const response = await axios.get(`${backendURL}/order/my-orders`, 
+          { userId }, 
+          {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
