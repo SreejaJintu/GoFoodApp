@@ -11,29 +11,19 @@ function MyOrders() {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('authToken');
-        const userId = localStorage.getItem('userId');
-        console.log('Token:', token);
-        console.log('UserId:', userId);
-
-
+        const backendURL = process.env.REACT_APP_BACKEND_URL;
+    
         if (!token) {
           throw new Error('User not authenticated');
         }
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        console.log('Token Expiration:', new Date(decodedToken.exp * 1000));
-        
-        const backendURL = process.env.REACT_APP_BACKEND_URL;
-
-        const response = await axios.get(`${backendURL}/order/my-orders`, 
-          { userId }, 
-          {
+    
+        const response = await axios.get(`${backendURL}/order/my-orders`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
-        
-        
+    
         setOrders(response.data.orders);
       } catch (err) {
         setError(err.response?.data?.message || err.message);
@@ -41,7 +31,7 @@ function MyOrders() {
         setLoading(false);
       }
     };
-
+    
     fetchOrders();
   }, []);
 
