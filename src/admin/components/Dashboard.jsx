@@ -119,25 +119,25 @@ const Dashboard = () => {
 
   const updateOrders = async (orderId, updatedData) => {
     try {
-      const token = localStorage.getItem('authToken');
       const response = await fetch(`${backendURL}/admin/orders/${orderId}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(updatedData),
       });
-
+  
       if (!response.ok) {
         throw new Error(`Failed to update order with status ${response.status}`);
       }
   
       const updatedOrder = await response.json();
-      console.log('Order updated successfully', updatedOrder.status);
+      console.log('Order updated successfully:', updatedOrder);
   
-      setOrders(prevOrders =>
-        prevOrders.map(order =>
+      // Update the local state to reflect the changes
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
           order._id === orderId ? { ...order, ...updatedData } : order
         )
       );
@@ -145,6 +145,7 @@ const Dashboard = () => {
       console.error('Error updating order:', error);
     }
   };
+  
   
   
   useEffect(() => {
@@ -187,13 +188,18 @@ const Dashboard = () => {
                   </span>
                 </td>
                 <td>
-                {order.status !== 'Delivered' ? (
-  <button>Mark as Delivered</button>
-) : (
-  <span>Delivered</span>
-)}
+  {order.status !== 'Delivered' ? (
+    <button
+      onClick={() => updateOrders(order._id, { status: 'Delivered' })}
+      style={styles.button}
+    >
+      Mark as Delivered
+    </button>
+  ) : (
+    <span style={styles.statusBadge(order.status)}>Delivered</span>
+  )}
+</td>
 
-              </td>
               </tr>
             ))}
           </tbody>
