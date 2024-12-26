@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useStore } from "../context/StoreContext";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import "./Cart2.css";
+import "./Cart.css";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -10,14 +10,14 @@ function Cart4() {
   const { cart, clearCart } = useStore();
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const [orderSuccess, setOrderSuccess] = useState(false);
+  const [orderCreated, setOrderCreated] = useState(false);
 
   const totalAmount = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const handleProceed = async () => {
     const userId = localStorage.getItem("userId");
     const authToken = localStorage.getItem("authToken");
-    console.log(authToken)
+
     if (!authToken || !userId) {
       alert("You must be logged in to proceed with the order.");
       return;
@@ -44,19 +44,17 @@ function Cart4() {
         body: JSON.stringify(orderData),
       });
 
-      const result = await response.json();
-      if (!response.ok) {
-        alert(result.message || "Failed to place order.");
-        return;
-      }
+      const data = await response.json();
 
-      setClientSecret(result.clientSecret);
-      console.log('clientSecret from backend:', result.clientSecret);
- // Stripe client secret for the payment
-      alert("Order created, ready to make payment!");
+      if (data.success) {
+        setClientSecret(data.clientSecret);
+        setOrderCreated(true); // Order created successfully
+      } else {
+        alert(data.message || "Failed to create order.");
+      }
     } catch (error) {
-      console.error("Error placing order:", error);
-      alert("An error occurred.");
+      console.error("Error creating order:", error);
+      alert("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -83,22 +81,28 @@ function Cart4() {
           </ul>
 
           <h3>Total: ${totalAmount.toFixed(2)}</h3>
-          <button className="btn-proceed" onClick={handleProceed} disabled={isLoading}>
-         {isLoading ? "Processing..." : "Proceed to Payment"}
-          </button>
 
+          {!orderCreated && (
+            <button
+              className="btn-proceed"
+              onClick={handleProceed}
+              disabled={isLoading}
+            >
+              {isLoading ? "Processing..." : "Create Order"}
+            </button>
+          )}
 
           {clientSecret && (
-   <Elements stripe={stripePromise} options={{ clientSecret }}>
-     <PaymentForm clearCart={clearCart} clientSecret={clientSecret} />
-   </Elements>
-)}
-
+            <Elements stripe={stripePromise} options={{ clientSecret }}>
+              <PaymentForm clearCart={clearCart} clientSecret={clientSecret} />
+            </Elements>
+          )}
         </>
       )}
     </div>
   );
 }
+
 function PaymentForm({ clientSecret, clearCart }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -121,7 +125,7 @@ console.log(paymentIntent)
         alert("Payment failed. Please try again.");
       } else {
         alert("Payment successful!");
-        clearCart();
+        clearCart(); // Clear cart after successful payment
       }
     } catch (error) {
       console.error("Error during payment:", error);
@@ -131,14 +135,32 @@ console.log(paymentIntent)
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement options={{ style: { base: { fontSize: '16px', color: '#424770', '::placeholder': { color: '#aab7c4' } } } }} />
-      <button type="submit" disabled={!stripe || isProcessing}>
+    <form onSubmit={handleSubmit} className="payment-form">
+      <CardElement
+        options={{
+          style: {
+            base: {
+              fontSize: "16px",
+              color: "#32325d",
+              "::placeholder": { color: "#aab7c4" },
+              padding: "10px",
+            },
+            invalid: {
+              color: "#e5424d",
+            },
+          },
+        }}
+        className="card-element"
+      />
+      <button
+        type="submit"
+        disabled={!stripe || isProcessing}
+        className={`pay-now-button ${isProcessing ? "disabled" : ""}`}
+      >
         {isProcessing ? "Processing..." : "Pay Now"}
       </button>
     </form>
   );
 }
 
-  
 export default Cart4;

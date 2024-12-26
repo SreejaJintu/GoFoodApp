@@ -33,10 +33,13 @@ try {
       if (response.ok) {
         alert('Login successful!');
         localStorage.setItem('authToken', data.token); 
-        localStorage.setItem('userId', data.userId); 
-        // localStorage.setItem('user', JSON.stringify({ token: response.data.token, role: response.data.user.role }));
+        console.log('token ===',data.token)
+        localStorage.setItem('userId', data.userId);
+        console.log('userId ===',data.userId)
+ 
         localStorage.setItem('role', data.role); // Store user role
-        
+        // localStorage.setItem('user', JSON.stringify({ token: response.data.token, role: response.data.user.role,userId: response.data.userId }));
+
         // Redirect based on role
         if (data.role === 'admin') {
           navigate('/admin');
@@ -44,11 +47,7 @@ try {
           navigate('/');
         }
   
-        // // Decode the token to get user details
-        // const decodedToken = jwtDecode(data.token); 
-        // localStorage.setItem('user', JSON.stringify(decodedToken));
-
-        // navigate('/');
+    
       } else {
         setError(data.message || 'Login failed. Please try again.');
       }

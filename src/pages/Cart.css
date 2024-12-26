@@ -1,41 +1,104 @@
-/* Smaller Delete Button */
-.btn-delete {
-  padding: 3px 6px; /* Reduced padding */
-  font-size: 12px; /* Smaller font size */
-  font-weight: bold;
-  color: white;
-  background-color: #ff4d4d;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  align-self: center; /* Align button vertically */
-  min-width: 60px; /* Ensure consistent button width */
+.cart-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.empty-cart {
+  font-style: italic;
   text-align: center;
 }
 
-.btn-delete:hover {
-  background-color: #e63939;
-  transform: scale(1.05);
+.cart-list {
+  list-style: none;
+  padding: 0;
 }
 
-/* Cart Item Styles */
 .cart-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px; /* Slightly reduced padding */
-  margin-bottom: 10px; /* Slightly reduced margin */
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 5px;
 }
 
-.cart-item div {
-  flex: 1; /* Take up available space */
+.cart-item-details {
+  display: flex;
+  flex-direction: column;
 }
 
-.cart-item h4,
-.cart-item p {
-  margin: 5px 0;
+.btn-proceed {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-proceed:hover {
+  background-color: #0056b3;
+}
+
+.btn-proceed:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.payment-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pay-now-button {
+  margin-top: 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pay-now-button:hover {
+  background-color: #218838;
+}
+
+.pay-now-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.card-element {
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  font-size: 16px;
+  color: #495057;
+}
+
+.card-element::placeholder {
+  color: #aab7c4;
+}
+
+.card-element.invalid {
+  color: #e5424d;
 }
