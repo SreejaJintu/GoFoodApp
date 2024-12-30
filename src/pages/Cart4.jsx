@@ -48,7 +48,8 @@ function Cart4() {
 
       if (data.success) {
         setClientSecret(data.clientSecret);
-        setOrderCreated(true); // Order created successfully
+        setOrderCreated(true); 
+        console.log("userdetails",data)
       } else {
         alert(data.message || "Failed to create order.");
       }
