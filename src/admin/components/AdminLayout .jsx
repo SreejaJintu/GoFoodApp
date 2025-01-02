@@ -1,18 +1,35 @@
 import React from 'react';
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
-
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
 
 const AdminLayout = ({ children }) => {
   return (
-    <div className="admin-layout">
+    <div style={styles.layout}>
       <Sidebar />
-      <div className="admin-main">
+      <div style={styles.mainContent}>
         <Navbar />
-        <div className="admin-content">{children}</div>
+        <div style={styles.content}>{children}</div>
       </div>
     </div>
   );
+};
+
+const styles = {
+  layout: {
+    display: 'flex',
+  },
+  mainContent: {
+    marginLeft: '250px',
+    width: 'calc(100% - 250px)',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  content: {
+    padding: '20px',
+    backgroundColor: '#ecf0f1',
+    flex: '1',
+  },
 };
 
 export default AdminLayout;

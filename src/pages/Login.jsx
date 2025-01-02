@@ -36,17 +36,18 @@ try {
         console.log('token ===',data.token)
         localStorage.setItem('userId', data.userId);
         console.log('userId ===',data.userId)
- 
-        localStorage.setItem('role', data.role); // Store user role
-        // localStorage.setItem('user', JSON.stringify({ token: response.data.token, role: response.data.user.role,userId: response.data.userId }));
+        localStorage.setItem('role', data.role); 
+        console.log('role ===',data.role)
 
-        // Redirect based on role
+        localStorage.setItem('user', JSON.stringify({ token: data.token, role: data.role, userId: data.userId }));
+
         if (data.role === 'admin') {
           navigate('/admin');
         } else {
           navigate('/');
         }
-  
+        console.log('Navigating to:', data.role === 'admin' ? '/admin' : '/');
+
     
       } else {
         setError(data.message || 'Login failed. Please try again.');
