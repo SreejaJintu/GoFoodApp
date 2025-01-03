@@ -126,7 +126,7 @@ console.log(paymentIntent)
         alert("Payment failed. Please try again.");
       } else {
         alert("Payment successful!");
-        clearCart(); // Clear cart after successful payment
+        clearCart(); 
       }
     } catch (error) {
       console.error("Error during payment:", error);

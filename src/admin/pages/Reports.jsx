@@ -51,22 +51,23 @@ const Reports = () => {
         <table style={styles.table}>
           <thead>
             <tr>
-              <th>Report ID</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Generated On</th>
+              <th style={styles.title}>ID</th>
+              <th style={styles.title}>Title</th>
+              <th style={styles.title}>Description</th>
+              <th style={styles.title}>createdOn</th>
             </tr>
           </thead>
           <tbody>
-            {reports.map((report) => (
-              <tr key={report.id}>
-                <td>{report.id}</td>
-                <td>{report.title}</td>
-                <td>{report.description}</td>
-                <td>{new Date(report.generatedOn).toLocaleDateString()}</td>
-              </tr>
-            ))}
-          </tbody>
+  {reports.map((report, index) => (
+    <tr key={report.id}>
+      <td>{index + 1}</td> 
+      <td>{report.title}</td>
+      <td>{report.description}</td>
+      <td>{new Date(report.generatedOn).toLocaleDateString()}</td>
+    </tr>
+  ))}
+</tbody>
+
         </table>
       )}
 
@@ -105,10 +106,14 @@ const styles = {
     overflow: 'hidden',
   },
   tableRow: {
+    display: 'flex',
+    gap: '10px',
     textAlign: 'left',
     padding: '8px',
     borderBottom: '1px solid #ddd',
+    marginBottom: '10px', 
   },
+  
 };
 
 export default Reports;

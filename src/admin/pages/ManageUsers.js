@@ -44,7 +44,6 @@ const ManageUsers = () => {
             <th style={styles.th}>Name</th>
             <th style={styles.th}>Email</th>
             <th style={styles.th}>Role</th>
-            <th style={styles.th}>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -54,10 +53,7 @@ const ManageUsers = () => {
               <td style={styles.td}>{user.name}</td>
               <td style={styles.td}>{user.email}</td>
               <td style={styles.td}>{user.role}</td>
-              <td style={styles.td}>
-                <button style={styles.actionButton} onClick={() => handleEdit(user.id)}>Edit</button>
-                <button style={{ ...styles.actionButton, backgroundColor: 'red' }} onClick={() => handleDelete(user.id)}>Delete</button>
-              </td>
+              
             </tr>
           ))}
         </tbody>
@@ -65,13 +61,7 @@ const ManageUsers = () => {
     </div>
   );
 
-  function handleEdit(userId) {
-    alert(`Edit user with ID: ${userId}`);
-  }
-
-  function handleDelete(userId) {
-    alert(`Delete user with ID: ${userId}`);
-  }
+ 
 };
 
 const styles = {

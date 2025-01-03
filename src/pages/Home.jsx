@@ -10,10 +10,8 @@ function Home() {
   const [filteredItems, setFilteredItems] = useState([]); 
   const [selectedCategory, setSelectedCategory] = useState("All"); 
 
-  // Fetch food items from the backend
   const loadData = useCallback(async () => {
     try {
-      // console.log("Fetching data from:", `${process.env.REACT_APP_BACKEND_URL}/food/display`);
       const response = await fetch("https://backend-gofood-aq0x.onrender.com/food/display", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
