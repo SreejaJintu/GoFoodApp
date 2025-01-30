@@ -63,6 +63,7 @@ function App() {
           <Route path="/myorders" element={<MyOrdres />} />
           <Route path="/myprofile" element={<Profile />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="*" element={<div>Page Not Found</div>} />
 
           {/* Protected Admin Routes */}
           <Route
