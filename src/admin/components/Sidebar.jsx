@@ -8,6 +8,8 @@ const Sidebar = () => {
         <li><Link to="/admin" style={styles.link}>Manage Orders</Link></li>
         <li><Link to="/admin/users" style={styles.link}>Manage Users</Link></li>
         <li><Link to="/admin/reports" style={styles.link}>Reports</Link></li>
+        <li><Link to="/admin/manage-food-items" style={styles.link}>Manage Food Items</Link></li>
+
       </ul>
     </aside>
   );

@@ -48,13 +48,21 @@ const StoreContextProvider = ({ children }) => {
   const clearCart = () => { 
     dispatch({ type: "CLEAR_CART" });
   };
+  const setUser = (user) => {
+    dispatch({ type: "SET_USER", payload: user });
+  };
 
+  const clearUser = () => {
+    dispatch({ type: "SET_USER", payload: null });
+  };
   const contextValue = {
     cart: state.cart,
     user: state.user, 
     addToCart,
     removeFromCart,
     clearCart,
+    setUser,
+    clearUser
   };
   
 

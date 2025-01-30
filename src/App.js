@@ -48,6 +48,7 @@ import Cart4 from "./pages/Cart4";
 import PrivateRoute from './admin/components/PrivateRoute';
 import AdminRoutes from './admin/routes/AdminRoutes '; 
 import { UserProvider } from './context/userContext';
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
           <Route path="/signin" element={<Signup />} />
           <Route path="/cart" element={<Cart4 />} />
           <Route path="/myorders" element={<MyOrdres />} />
+          <Route path="/myprofile" element={<Profile />} />
           <Route path="/payment" element={<Payment />} />
 
           {/* Protected Admin Routes */}
