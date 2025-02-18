@@ -15,8 +15,8 @@ const ManageFoodItems = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
-
+  const backendURL = 'process.env.REACT_APP_BACKEND_URL ';
+//http://localhost:5000 
   // Fetch existing food items
   useEffect(() => {
     const fetchFoodItems = async () => {
@@ -42,32 +42,13 @@ const ManageFoodItems = () => {
     setNewFood((prev) => ({ ...prev, [name]: value }));
   };
 
-const handleImageChange = (e) => {
-  setNewFood((prev) => ({ ...prev, image: e.target.files[0] }));
-};
-  // const handleAddFoodItem = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   setError('');
-  //   setSuccess('');
-  //   console.log("Payload sent to server:", newFood);
-  //   console.log("Food items:", foodItems);
+  const [image, setImage] = useState(null);
 
-  //   try {
-  //     const response = await axios.post(`${backendURL}/food/add`, newFood, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     setSuccess(response.data.message || 'Food item added successfully!');
-  //     setFoodItems((prev) => [...prev, response.data.foodItem]); // Update state with new food item
-  //     setNewFood({ name: '', price: '' }); // Reset form
-  //   } catch (err) {
-  //     setError(err.response?.data?.message || 'Error adding food item');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+  
   const handleAddFoodItem = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -80,10 +61,8 @@ const handleImageChange = (e) => {
       formData.append('price', newFood.price);
       formData.append('description', newFood.description);
       formData.append('category', newFood.category);
-      if (newFood.image) {
-        formData.append('image', newFood.image);
-      }
-  
+      formData.append('image', image);
+
       const response = await axios.post(`${backendURL}/food/add`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -128,36 +107,6 @@ const handleImageChange = (e) => {
       {success && <div className="alert alert-success">{success}</div>}
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {/* Add Food Item Form */}
-      {/* <form className="food-item-form" onSubmit={handleAddFoodItem}>
-        <div className="form-group">
-          <label htmlFor="name">Food Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={newFood.name}
-            onChange={handleInputChange}
-            placeholder="Enter food name"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="price">Price</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={newFood.price}
-            onChange={handleInputChange}
-            placeholder="Enter price"
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? 'Adding...' : 'Add Food Item'}
-        </button>
-      </form> */}
       <form className="food-item-form" onSubmit={handleAddFoodItem}>
   <div className="form-group">
     <label htmlFor="name">Food Name</label>
@@ -172,6 +121,28 @@ const handleImageChange = (e) => {
     />
   </div>
   <div className="form-group">
+    <label htmlFor="description">Description</label>
+    <textarea
+      id="description"
+      name="description"
+      value={newFood.description}
+      onChange={handleInputChange}
+      placeholder="Enter description"
+    />
+  </div>
+  <div className="form-group">
+    <label htmlFor="image">Image</label>
+    <input
+  type="file"
+  id="image"
+  name="image"
+  onChange={handleImageChange}
+  accept="image/*"
+/>
+
+  </div>
+  
+  <div className="form-group">
     <label htmlFor="price">Price</label>
     <input
       type="number"
@@ -183,37 +154,8 @@ const handleImageChange = (e) => {
       required
     />
   </div>
-  <div className="form-group">
-    <label htmlFor="description">Description</label>
-    <textarea
-      id="description"
-      name="description"
-      value={newFood.description}
-      onChange={handleInputChange}
-      placeholder="Enter description"
-    />
-  </div>
-  <div className="form-group">
-    <label htmlFor="category">Category</label>
-    <input
-      type="text"
-      id="category"
-      name="category"
-      value={newFood.category}
-      onChange={handleInputChange}
-      placeholder="Enter category"
-    />
-  </div>
-  <div className="form-group">
-    <label htmlFor="image">Image</label>
-    <input
-      type="file"
-      id="image"
-      name="image"
-      onChange={handleImageChange}
-      accept="image/*"
-    />
-  </div>
+
+
   <button type="submit" className="btn btn-primary" disabled={loading}>
     {loading ? 'Adding...' : 'Add Food Item'}
   </button>

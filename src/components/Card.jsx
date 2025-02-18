@@ -48,8 +48,8 @@ function Card({ name, price, category, description, image }) {
             value={size}
             onChange={(e) => setSize(e.target.value)}
           >
-            <option value="half">Half</option>
             <option value="quarter">Quarter</option>
+            <option value="half">Half</option>
             <option value="full">Full</option>
           </select>
         </div>

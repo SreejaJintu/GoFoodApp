@@ -66,7 +66,7 @@ function Cart4() {
       <h2 className="cart-title">My Cart</h2>
 
       {cart.length === 0 ? (
-        <p className="empty-cart">Your cart is empty.</p>
+        <p className="empty-cart">Your Order will be delivered soon.</p>
       ) : (
         <>
           <ul className="cart-list">
