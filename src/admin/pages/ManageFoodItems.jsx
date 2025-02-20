@@ -38,7 +38,10 @@ const ManageFoodItems = () => {
   
   const fetchFoodItems = async (retryCount = 3) => {
     try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/food/display`);
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/food/display`, {
+            headers: { 'Cache-Control': 'no-cache' }, // 👈 Prevents browser caching
+            params: { timestamp: new Date().getTime() } // 👈 Forces fresh fetch
+        });
         setFoodItems(res.data);
     } catch (error) {
         if (retryCount > 0) {
@@ -53,6 +56,7 @@ const ManageFoodItems = () => {
 useEffect(() => {
     fetchFoodItems();
 }, []);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
