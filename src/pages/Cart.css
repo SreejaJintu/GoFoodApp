@@ -27,6 +27,7 @@
 .cart-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
   padding: 10px;
   background: #ffffff;
@@ -36,6 +37,39 @@
 .cart-item-details {
   display: flex;
   flex-direction: column;
+}
+
+/* New styles for Remove Item button */
+.btn-remove-item {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove-item:hover {
+  background-color: #c82333;
+}
+
+/* New styles for Clear Cart button */
+.btn-clear-cart {
+  background-color: #ffc107;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.btn-clear-cart:hover {
+  background-color: #e0a800;
 }
 
 .btn-proceed {
@@ -102,6 +136,7 @@
 .card-element.invalid {
   color: #e5424d;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;

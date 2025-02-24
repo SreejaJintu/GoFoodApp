@@ -1,89 +1,4 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import { useStore } from "../context/StoreContext";
-// import "./Navbar.css";
-
-// function Navbar() {
-//   const { cart } = useStore(); 
-//   // const storedUser = localStorage.getItem('user');
-//   // const user = storedUser ? JSON.parse(storedUser) : null;
-//   return (
-//     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-//       <div className="container-fluid">
-//         <Link className="navbar-brand fs-1 fst-italic" to="/">
-//           GoFood
-//         </Link>
-//         <button
-//           className="navbar-toggler"
-//           type="button"
-//           data-bs-toggle="collapse"
-//           data-bs-target="#navbarNav"
-//           aria-controls="navbarNav"
-//           aria-expanded="false"
-//           aria-label="Toggle navigation"
-//         >
-//           <span className="navbar-toggler-icon"></span>
-//         </button>
-//         <div className="collapse navbar-collapse" id="navbarNav">
-             
-     
-//           <ul className="navbar-nav me-auto mb-2">
-//             <li className="nav-item">
-//               <Link className="nav-link" to="/">
-//                 Home
-//               </Link>
-//             </li>
-   
-    
-//             {localStorage.getItem("authToken") && (
-//               <li className="nav-item">
-//                 <Link className="nav-link" to="/myorders">
-//                   My Orders
-//                 </Link>
-//                 <Link className="nav-link" to="/myprofile">
-//                  Profile
-//                 </Link>
-//               </li>
-//             )}
-            
-//           </ul>
-//           {!localStorage.getItem("authToken") ? (
-//             <div className="d-flex">
-//               <Link className="btn bg-grey text-secondary mx-1" to="/login">
-//                 Login
-//               </Link>
-//               <Link className="btn bg-grey text-secondary mx-1" to="/signin">
-//                 Signin
-//               </Link>
-//             </div>
-//           ) : (
-//             <div className="d-flex gap-2 align-items-center">
-//   <Link to="/cart" className="cart-link" style={{ textDecoration: 'none' }}>
-//     My Cart
-//     {cart.length > 0 && <span className="cart-badge">{cart.length}</span>}
-//   </Link>
-
-//   <Link
-//     to="/"
-//     className="text-bold text-danger mx-2"
-//     style={{ textDecoration: 'none' }}
-//     onClick={() => {
-//       localStorage.removeItem("authToken");
-//       window.location.reload();
-//     }}
-//   >
-//     Logout
-//   </Link>
-// </div>
-
-//           )}
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// }
-
-// export default Navbar;
+//navbar-light bg-light
 import React from "react";
 import { Link } from "react-router-dom";
 import { useStore } from "../context/StoreContext";
@@ -93,7 +8,7 @@ function Navbar() {
   const { cart } = useStore();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg ">
       <div className="container-fluid">
         <Link className="navbar-brand fs-1 fst-italic" to="/">
           GoFood
@@ -102,68 +17,72 @@ function Navbar() {
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto mb-2">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav me-auto mb-2 mb-lg-0">
+            <Link className="nav-link" to="/">
+              Home
+            </Link>
             {localStorage.getItem("authToken") && (
               <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/myorders">
-                    My Orders
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/myprofile"
-                    className="nav-link d-flex align-items-center"
-                    style={{ textDecoration: "none" }}
-                  >
-                    <i className="bi bi-person-circle fs-5"></i>
-                  </Link>
-                </li>
+                <Link className="nav-link" to="/myorders">
+                  My Orders
+                </Link>
+                <Link
+                  to="/myprofile"
+                  className="nav-link d-flex align-items-center"
+                  style={{ textDecoration: "none" }}
+                >
+                  <i className="bi bi-person-circle fs-5"></i>
+                </Link>
               </>
             )}
-          </ul>
-          {!localStorage.getItem("authToken") ? (
-            <div className="d-flex">
-              <Link className="btn bg-grey text-secondary mx-1" to="/login">
-                Login
-              </Link>
-              <Link className="btn bg-grey text-secondary mx-1" to="/signin">
-                Signin
-              </Link>
-            </div>
-          ) : (
-            <div className="d-flex gap-2 align-items-center">
-              <Link to="/cart" className="cart-link" style={{ textDecoration: "none" }}>
-                My Cart
-                {cart.length > 0 && <span className="cart-badge">{cart.length}</span>}
-              </Link>
-
-              <Link
-                to="/"
-                className="text-bold text-danger mx-2"
-                style={{ textDecoration: "none" }}
-                onClick={() => {
-                  localStorage.removeItem("authToken");
-                  window.location.reload();
-                }}
-              >
-                Logout
-              </Link>
-            </div>
-          )}
+          </div>
+          <div className="d-flex align-items-center">
+            {!localStorage.getItem("authToken") ? (
+              <>
+                <Link className="btn btn-outline-secondary mx-1" to="/login">
+                  Login
+                </Link>
+                <Link className="btn btn-outline-secondary mx-1" to="/signin">
+                  Signin
+                </Link>
+              </>
+            ) : (
+              <div className="d-flex gap-2 align-items-center">
+                <Link
+                  to="/cart"
+                  className="nav-link position-relative"
+                  style={{ textDecoration: "none" }}
+                >
+                  My Cart
+                  {cart.length > 0 && (
+                    <span className="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      {cart.length}
+                      <span className="visually-hidden">cart items</span>
+                    </span>
+                  )}
+                </Link>
+                <Link
+                  to="/"
+                  className="nav-link text-danger"
+                  style={{ textDecoration: "none" }}
+                  onClick={() => {
+                    localStorage.removeItem("authToken");
+                    window.location.reload();
+                  }}
+                >
+                  Logout
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>
@@ -171,4 +90,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

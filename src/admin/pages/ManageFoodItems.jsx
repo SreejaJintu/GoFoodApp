@@ -16,42 +16,40 @@ const ManageFoodItems = () => {
   const [success, setSuccess] = useState('');
 
   const backendURL = process.env.REACT_APP_BACKEND_URL;
-//http://localhost:5000 
-  // Fetch existing food items
-  // useEffect(() => {
-  //   const fetchFoodItems = async () => {
-  //     try {
-  //       const response = await axios.get(`${backendURL}/food/display`);
-  //       if (response.data && Array.isArray(response.data)) {
-  //         setFoodItems(response.data);
-  //       } else {
-  //         console.error("Unexpected data format:", response.data);
-  //         setFoodItems([]);
-  //       }
-  //     } catch (err) {
-  //       setError('Failed to fetch food items');
-  //       console.error("Fetch error:", err);
-  //     }
-  //   };
-  //   fetchFoodItems();
-  // }, [backendURL]);
+
   
-  const fetchFoodItems = async (retryCount = 3) => {
-    try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/food/display`, {
-            headers: { 'Cache-Control': 'no-cache' }, // 👈 Prevents browser caching
-            params: { timestamp: new Date().getTime() } // 👈 Forces fresh fetch
-        });
-        setFoodItems(res.data);
-    } catch (error) {
-        if (retryCount > 0) {
-            console.warn(`Retrying... (${3 - retryCount + 1})`);
-            setTimeout(() => fetchFoodItems(retryCount - 1), 2000); // Retry after 2 sec
-        } else {
-            console.error("Failed to fetch food items:", error);
-        }
+//   const fetchFoodItems = async (retryCount = 3) => {
+//     try {
+//         const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/food/display`, {
+//             headers: { 'Cache-Control': 'no-cache' }, 
+//             params: { timestamp: new Date().getTime() }
+//         });
+//         setFoodItems(res.data);
+//     } catch (error) {
+//         if (retryCount > 0) {
+//             console.warn(`Retrying... (${3 - retryCount + 1})`);
+//             setTimeout(() => fetchFoodItems(retryCount - 1), 2000);
+//         } else {
+//             console.error("Failed to fetch food items:", error);
+//         }
+//     }
+// };
+const fetchFoodItems = async (retryCount = 3) => {
+  try {
+    const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/food/display`);
+    console.log("Fetched food items in admin:", res.data);
+    setFoodItems(res.data);
+  } catch (error) {
+    if (retryCount > 0) {
+      console.warn(`Retrying... (${3 - retryCount + 1})`);
+      setTimeout(() => fetchFoodItems(retryCount - 1), 2000);
+    } else {
+      console.error("Failed to fetch food items:", error);
     }
+  }
 };
+
+
 
 useEffect(() => {
     fetchFoodItems();
@@ -70,35 +68,7 @@ useEffect(() => {
     setImage(file);
   };
   
-  // const handleAddFoodItem = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   setError('');
-  //   setSuccess('');
-  
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('name', newFood.name);
-  //     formData.append('price', newFood.price);
-  //     formData.append('description', newFood.description);
-  //     // formData.append('category', newFood.category);
-  //     formData.append('image', image);
-
-  //     const response = await axios.post(`${backendURL}/food/add`, formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-  
-  //     setSuccess(response.data.message || 'Food item added successfully!');
-  //     setFoodItems((prev) => [...prev, response.data.foodItem]); // Update the list
-  //     setNewFood({ name: '', price: '', description: '', category: '', image: null }); // Reset form
-  //   } catch (err) {
-  //     setError(err.response?.data?.message || 'Error adding food item');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+ 
 
   const handleAddFoodItem = async (e) => {
     e.preventDefault();
