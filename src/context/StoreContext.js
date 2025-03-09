@@ -42,7 +42,7 @@ const StoreContextProvider = ({ children }) => {
   };
 
   const removeFromCart = (itemId) => {
-    dispatch({ type: "REMOVE_FROM_CART", payload: itemId });
+    dispatch({ type: "REMOVE_FROM_CART", payload:itemId });
   };
 
   const clearCart = () => { 

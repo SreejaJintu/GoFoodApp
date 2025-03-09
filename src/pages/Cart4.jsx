@@ -11,10 +11,11 @@ function Cart4() {
   const { cart, clearCart, removeFromCart } = useStore();
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [orderCreated, setOrderCreated] = useState(false); // for order creation
-  const [orderPlaced, setOrderPlaced] = useState(false);   // for payment confirmation
+  const [orderCreated, setOrderCreated] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);   
 
   const totalAmount = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  console.log("Cart data:", cart);
 
   const handleProceed = async () => {
     const userId = localStorage.getItem("userId");
@@ -28,9 +29,11 @@ function Cart4() {
     const orderData = {
       userId,
       items: cart.map((item) => ({
+        itemId:item._id,
         name: item.name,
         price: item.price,
         quantity: item.quantity,
+        image:item.image
       })),
       totalAmount,
     };
@@ -66,7 +69,7 @@ function Cart4() {
   return (
     <div className="cart-container">
       <h2 className="cart-title">My Cart</h2>
-      
+
       {cart.length === 0 && !orderPlaced ? (
         <p className="empty-cart">Your cart is empty.</p>
       ) : orderPlaced ? (
@@ -74,24 +77,26 @@ function Cart4() {
       ) : (
         <>
           <ul className="cart-list">
+            
             {cart.map((item, index) => (
               <li key={index} className="cart-item">
-                <div className="cart-item-details">
-                  <h4>{item.name}</h4>
-                  <p>Price: ${item.price.toFixed(2)}</p>
-                  <p>Quantity: {item.quantity}</p>
+                <div className="cart-item-details flex ">
+                  <div>
+                    <h4>{item.name}</h4>
+                    <p>Price: ${item.price.toFixed(2)}</p>
+                    <p>Quantity: {item.quantity}</p>
+                  </div>
                 </div>
-                <button
-  className="btn-remove-item"
-  onClick={() => {
-    console.log("Removing item with _id:", item._id);
-    removeFromCart(item._id);
-  }}
->
-  Remove
-</button>
+                <div>
+                  <img src={item.image} alt=""></img>
+                  <button type="button" className="btn btn-danger" onClick={() => {
+                      console.log("Item ID in cart:", item._id);
+                      console.log("Removing item with ID:", item._id);
+                      removeFromCart(item._id);
+                    }}>Remove</button>
 
-
+                 
+                </div>
               </li>
             ))}
           </ul>
@@ -115,7 +120,11 @@ function Cart4() {
 
           {clientSecret && (
             <Elements stripe={stripePromise} options={{ clientSecret }}>
-              <PaymentForm setOrderPlaced={setOrderPlaced} clearCart={clearCart} clientSecret={clientSecret} />
+              <PaymentForm
+                setOrderPlaced={setOrderPlaced}
+                clearCart={clearCart}
+                clientSecret={clientSecret}
+              />
             </Elements>
           )}
         </>

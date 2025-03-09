@@ -26,12 +26,12 @@ function Home() {
       const data = await response.json();
       console.log("Fetched data:", data);
 
-      // Handle both manually added images & Cloudinary images
+     
       const updatedData = data.map(item => ({
         ...item,
         image: item.image.startsWith("http") 
           ? item.image 
-          : `https://backend-gofood-aq0x.onrender.com${item.image}` // For local storage
+          : `https://backend-gofood-aq0x.onrender.com${item.image}` 
       }));
 
       setFoodItems(updatedData);
@@ -99,10 +99,13 @@ function Home() {
       </div>
 
       <div className="container food-items ">
+        
         {filteredItems.length > 0 ? (
           filteredItems.map((item) => (
+            
             <Card
               key={item._id}
+              _id={item._id}
               name={item.name}
               price={item.price}
               category={item.category}

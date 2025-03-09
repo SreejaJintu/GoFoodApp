@@ -2,14 +2,28 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
 import { StoreContext } from '../context/StoreContext'; 
+import { useEffect } from "react";
 
-function Card({ name, price, category, description, image }) {
+function Card({_id, name, price, category, description, image }) {
   const { addToCart } = useContext(StoreContext); 
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState('half');
+  const [size, setSize] = useState('quarter');
 
+  useEffect(() => {
+    console.log("Card Re-rendered:", { _id, name, price });
+  }, [_id, name, price]);
   const handleAddToCart = () => {
+    console.log("Adding to cart:", { _id, name, price });
+
+  
+    if (!_id) {
+      console.error("❌ Error: Missing _id for item", { name, price });
+      alert("Error: This item cannot be added to cart.");
+      return;
+    }
+  
     const item = {
+      _id,  // ✅ Ensure _id is included
       name,
       price,
       quantity,
@@ -17,9 +31,14 @@ function Card({ name, price, category, description, image }) {
       category,
       description,
     };
+  
     addToCart(item);
     alert(`${name} added to cart!`);
+    console.log("🛒 Adding item to cart:", item);
+
+  
   };
+  console.log("Card Component Loaded");
 
   return (
     <div className="card">
@@ -65,9 +84,10 @@ function Card({ name, price, category, description, image }) {
 }
 
 Card.propTypes = {
+  _id: PropTypes.string.isRequired, 
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  category: PropTypes.string.isRequired,
+  // category: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
 };

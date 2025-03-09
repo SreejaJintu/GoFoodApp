@@ -18,22 +18,7 @@ const ManageFoodItems = () => {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   
-//   const fetchFoodItems = async (retryCount = 3) => {
-//     try {
-//         const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/food/display`, {
-//             headers: { 'Cache-Control': 'no-cache' }, 
-//             params: { timestamp: new Date().getTime() }
-//         });
-//         setFoodItems(res.data);
-//     } catch (error) {
-//         if (retryCount > 0) {
-//             console.warn(`Retrying... (${3 - retryCount + 1})`);
-//             setTimeout(() => fetchFoodItems(retryCount - 1), 2000);
-//         } else {
-//             console.error("Failed to fetch food items:", error);
-//         }
-//     }
-// };
+
 const fetchFoodItems = async (retryCount = 3) => {
   try {
     const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/food/display`);
